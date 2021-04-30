@@ -3,6 +3,8 @@ Tech Mind Factory Identity is a demo project to present how to use identity serv
 
 *- On my [YouTube channel](https://www.youtube.com/techmindfactory) there will be a series of videos explaining below concepts*
 
+![lost-in-azure-cloud-identity-cover.png](assets/lost-in-azure-cloud-identity-cover.png)
+
 ### 1. Secure solution with Azure Active Directory and Azure Active Directory B2C
 
 In this article, we are going to focus on two main identity services available in the Azure cloud: Azure AD and Azure AD B2C. First, we will talk about the differences between these two services and when to use each one. We will talk about app registration in these services, scopes, and integration with libraries: Microsoft Identity Web and Microsoft Authentication Library.
