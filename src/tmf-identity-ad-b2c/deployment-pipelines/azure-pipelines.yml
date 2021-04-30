@@ -1,0 +1,40 @@
+trigger:
+- master
+
+stages:
+
+- stage: DeployCustomPolicies
+  displayName: 'Deploy Azure AD B2C custom policies'
+  condition: eq(variables['build.sourceBranch'], 'refs/heads/master')
+  variables:  
+  - group: 'tmf-identity-ad-b2c-release-scripts-vg'
+  - group: 'tmf-identity-ad-b2c-custom-policies-release-vg'
+  jobs:
+    - template: azure-pipelines-deployment-template.yml
+      parameters:
+        environment: 'PROD'
+        vstsFeed: $(vstsFeedPublish)
+        vstsFeedPackage: $(vstsFeedPackage)
+        vstsFeedPackageVersion: $(vstsFeedPackageVersion)
+        azureSubscription: $(azureResourceManagerConnectionName)
+        storageAccountName: $(storageAccountName)
+        storageAccountContainerName: $(storageAccountContainerName)
+        customPoliciesDirectory: 'src/custom-policies'
+        clientId: $(ad-b2c-devops-automation-app-id)
+        clientSecret: $(ad-b2c-devops-automation-app-secret)
+        tenantId: $(ad-b2c-devops-automation-app-tenant-id)
+        sendgrid-email-template-id: $(sendgrid-email-template-id)
+        sendgrid-from-email: $(sendgrid-from-email)
+        policies: 
+        - SigninSignIn:
+          basePolicy: 'B2C_1A_TrustFrameworkExtensions'
+          name: 'B2C_1A_SigninSignUp'
+          path: 'src/custom-policies/Signup_Signin.xml'
+        - PasswordReset:
+          basePolicy: 'B2C_1A_TrustFrameworkExtensions'
+          name: 'B2C_1A_PasswordReset'
+          path: 'src/custom-policies/PasswordReset.xml'
+        - ProfileEdit:
+          basePolicy: 'B2C_1A_TrustFrameworkExtensions'
+          name: 'B2C_1A_ProfileEdit'
+          path: 'src/custom-policies/ProfileEdit.xml'

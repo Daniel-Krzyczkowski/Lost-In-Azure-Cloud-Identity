@@ -1,0 +1,41 @@
+﻿@page "/readdocument"
+
+@using TMF.Corporate.WebApp.Services
+
+@inject IApiService ApiService;
+
+<AuthorizeView Policy="Employee">
+    <Authorized>
+        <p>
+            <b>
+                The user is in the 'Employee' AAD Administrator Role
+                and can read financial documents.
+            </b>
+            <br />
+            <br />
+            <button class="btn btn-primary"
+                    @onclick="@(async () => await CallApiAsync())">
+                Call API
+            </button>
+            <br />
+            <br />
+            <p>@ResponseFromWebApi</p>
+        </p>
+    </Authorized>
+    <NotAuthorized>
+        <p>
+            <b>The user is not in the 'Employee' role and cannot see the content of this page</b>
+        </p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code
+{
+    string ResponseFromWebApi = string.Empty;
+
+    private async Task CallApiAsync()
+    {
+        var apiResponse = await ApiService.GetGreetingFromApiAsync();
+        ResponseFromWebApi = apiResponse;
+    }
+}

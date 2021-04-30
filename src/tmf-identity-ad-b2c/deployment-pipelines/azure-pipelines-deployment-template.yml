@@ -1,0 +1,54 @@
+jobs:
+- deployment: AD_B2C_Custom_Policies_Release
+  displayName: AD B2C Custom Policies Release
+  pool:
+    vmImage: 'VS2017-Win2016'
+  environment: ${{parameters.environment}}
+  variables:
+    scriptsDownloadDirectory: '$(System.DefaultWorkingDirectory)/custom-scripts'
+    policyScriptPath: '$(scriptsDownloadDirectory)/custom-policies-deployment-script.ps1'
+    injectionScriptPath: '$(scriptsDownloadDirectory)/parameters-injection-script.ps1'
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+          - checkout: self
+            clean: true 
+            fetchDepth: 5
+            lfs: true
+            
+          - task: AzureFileCopy@3
+            displayName: Copy branding files to Azure Blob Storage
+            inputs:
+              azureSubscription: ${{parameters.azureSubscription}}
+              SourcePath: '${{parameters.brandingFilesDirectory}}'
+              Destination: 'AzureBlob'
+              storage: '${{parameters.storageAccountName}}'
+              ContainerName: '${{parameters.storageAccountContainerName}}'
+
+          - task: UniversalPackages@0
+            displayName: Getting custom scripts from feed
+            inputs:
+              command: 'download'
+              downloadDirectory: '$(scriptsDownloadDirectory)'
+              feedsToUse: 'internal'
+              vstsFeed: ${{parameters.vstsFeed}}
+              vstsFeedPackage: ${{parameters.vstsFeedPackage}}
+              vstsPackageVersion: ${{parameters.vstsFeedPackageVersion}}        
+          - ${{ each policy in parameters.policies }}:
+            - task: PowerShell@2
+              displayName: Transform Tokens in ${{policy.path}}
+              inputs:
+                filePath: '$(injectionScriptPath)'
+                arguments: '-PolicyId "${{policy.name}}" -File "${{policy.path}}" -DirectoryRoot "$(System.DefaultWorkingDirectory)" -TenantId "${{parameters.tenantId}}" -BasePolicy "${{policy.basePolicy}}"' 
+          - ${{ each policy in parameters.policies }}:
+            - task: PowerShell@2
+              displayName: Release ${{policy.name}}
+              inputs:
+                filePath: '$(policyScriptPath)'
+                arguments: >-
+                  -ClientID ${{parameters.clientId}}
+                  -ClientSecret ${{parameters.clientSecret}}
+                  -TenantId ${{parameters.tenantId}}
+                  -PolicyId "${{policy.name}}"
+                  -PathToFile "$(System.DefaultWorkingDirectory)/${{policy.path}}"

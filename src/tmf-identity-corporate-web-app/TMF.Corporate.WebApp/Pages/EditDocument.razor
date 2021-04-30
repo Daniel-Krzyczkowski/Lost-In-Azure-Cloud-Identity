@@ -1,0 +1,17 @@
+﻿@page "/editdocument"
+
+<AuthorizeView Policy="Director">
+    <Authorized>
+        <p>
+            <b>
+                The user is in the 'Director' AAD Administrator Role
+                and can edit financial documents.
+            </b>
+        </p>
+    </Authorized>
+    <NotAuthorized>
+        <p>
+            <b>The user is not in the 'Director' role and cannot see the content of this page</b>
+        </p>
+    </NotAuthorized>
+</AuthorizeView>
