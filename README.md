@@ -32,3 +32,42 @@ In this article, we are going to focus on the DevOps practices for custom polici
 ### 7. Azure Monitor integration with Azure AD B2C for sign-in and audit logs
 
 In the last article, we are going to focus on the audit logs. We will see how to use Azure Monitor to route Azure Active Directory B2C (Azure AD B2C) sign-in and auditing logs to Log Analytics workspace to analyze data, create dashboards, and alert on specific events.
+
+
+## Solution architecture
+
+![lost-in-azure-cloud-identity-architecture.png](assets/lost-in-azure-cloud-identity-architecture.png)
+
+### Azure Active Directory and Corporate Web App
+
+![demo-app1.png](assets/demo-app1.png)
+
+Azure Active Directory is used to manage access to corporate applications - in this case to the Tech Mind Factory Corporate Web Application. Employees of Tech Mind Factory company can sign in using their corporate accounts and access web app functionalities. Important fact - these employees can have different application roles assigned. The authorization mechanism implemented in the application prevents access to unauthorized pages once the user role is verified. Roles are injected in the tokens returned from the Azure Active Directory service, once the user is authenticated.
+
+### Azure Active Directory B2C and Customer Desktop App
+
+![demo-app1.png](assets/demo-app2.png)
+
+![demo-app1.png](assets/demo-app3.png)
+
+Tech Mind Factory company has also an application that is available for customers - Tech Mind Factory Customer Application. This is a desktop application (Universal Window Platform app) where customers can register and sign in. To easily manage users and their access to the application, Azure Active Directory B2C service is used. Why second Active Directory? Because we do not want to store user accounts, corporate users and customers, in one directory. What is more, we want to provide flexibility to customers so they can create their accounts themselves and use social media accounts (Facebook) to sign in. One important point - because of federation between Azure AD and Azure AD B2C tenants, Tech Mind Factory employees (corporate users) can access customer application using their corporate accounts registered in the Azure AD tenant.
+
+### Tech Mind Factory Shared Web API
+
+![demo-app1.png](assets/demo-app5.png)
+
+Web API is written in ASP .NET Core .NET 5, which returns data for both applications - TMF Customer Application and TMF Corporate Web Application. This Web API is written in a way that enables users to access tokens returned from both identity services - Azure Active Directory and Azure Active Directory B2C. I want to present how to use multiple bearer token authentication schemes.
+
+### Tech Mind Factory Identity Web API
+
+![demo-app1.png](assets/demo-app4.png)
+
+This API, written in ASP .NET Core .NET 5, was created to provide an easy way to create user accounts in the Azure AD B2C using Microsoft Graph API (programmatically) and to provide a migration mechanism. There are some scenarios in the real world where we want to migrate user account from one identity system to another. This API presents how to do it using Azure AD B2C and Microsoft Graph API.
+
+### Tech Mind Factory Identity Monitoring
+
+In the Tech Mind Factory corporation, there is a requirement to monitor Azure AD B2C tenants and collect sign-in and auditing logs. Azure Monitor is used to route Azure Active Directory B2C (Azure AD B2C) sign-in and auditing logs to Log Analytics workspace to analyze data, create dashboards, and alert on specific events.
+
+### Key Vault and Azure Application Insights
+
+Each solution requires good monitoring, this is why the Azure Application Insights service is used to monitor APIs performance and issues. Key Vault is a must-have if we want to store configuration securely in the cloud.
