@@ -40,7 +40,7 @@ In the last article, we are going to focus on the audit logs. We will see how to
 
 ### Azure Active Directory and Corporate Web App
 
-![demo-app1.png](assets/demo-app1.png)
+![demo-app1.png](assets/demo-app1.PNG)
 
 Azure Active Directory is used to manage access to corporate applications - in this case to the Tech Mind Factory Corporate Web Application. Employees of Tech Mind Factory company can sign in using their corporate accounts and access web app functionalities. Important fact - these employees can have different application roles assigned. The authorization mechanism implemented in the application prevents access to unauthorized pages once the user role is verified. Roles are injected in the tokens returned from the Azure Active Directory service, once the user is authenticated.
 
