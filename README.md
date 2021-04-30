@@ -48,13 +48,13 @@ Azure Active Directory is used to manage access to corporate applications - in t
 
 ![demo-app2.png](assets/demo-app2.png)
 
-![demo-app3.png](assets/demo-app3.png)
+![demo-app3.png](assets/demo-app3.PNG)
 
 Tech Mind Factory company has also an application that is available for customers - Tech Mind Factory Customer Application. This is a desktop application (Universal Window Platform app) where customers can register and sign in. To easily manage users and their access to the application, Azure Active Directory B2C service is used. Why second Active Directory? Because we do not want to store user accounts, corporate users and customers, in one directory. What is more, we want to provide flexibility to customers so they can create their accounts themselves and use social media accounts (Facebook) to sign in. One important point - because of federation between Azure AD and Azure AD B2C tenants, Tech Mind Factory employees (corporate users) can access customer application using their corporate accounts registered in the Azure AD tenant.
 
 ### Tech Mind Factory Shared Web API
 
-![demo-app5.png](assets/demo-app5.png)
+![demo-app5.png](assets/demo-app5.PNG)
 
 Web API is written in ASP .NET Core .NET 5, which returns data for both applications - TMF Customer Application and TMF Corporate Web Application. This Web API is written in a way that enables users to access tokens returned from both identity services - Azure Active Directory and Azure Active Directory B2C. I want to present how to use multiple bearer token authentication schemes.
 
