@@ -33,7 +33,7 @@ namespace TMF.Corporate.WebApp.Services
         public async Task<string> GetGreetingFromApiAsync()
         {
             await GetAndAddApiAccessTokenToAuthorizationHeaderAsync();
-            var response = await _httpClient.GetAsync("https://localhost:5003/user");
+            var response = await _httpClient.GetAsync($"{_configuration["WebApi:Url"]}/user");
             if (response.IsSuccessStatusCode)
             {
                 var apiResponseJson = await response.Content.ReadAsStringAsync();
