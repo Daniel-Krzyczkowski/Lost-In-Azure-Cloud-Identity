@@ -1,7 +1,7 @@
 # Lost In Azure Cloud Identity
 Tech Mind Factory Identity is a demo project to present how to use identity services available in the Azure cloud. 
 
-*- On my [tech blog(https://techmindfactory.com/) there will be a series of articles explaining below concepts*
+*- On my [tech blog](https://techmindfactory.com/) there will be a series of articles explaining below concepts*
 
 ![lost-in-azure-cloud-identity-cover.png](assets/lost-in-azure-cloud-identity-cover.png)
 
