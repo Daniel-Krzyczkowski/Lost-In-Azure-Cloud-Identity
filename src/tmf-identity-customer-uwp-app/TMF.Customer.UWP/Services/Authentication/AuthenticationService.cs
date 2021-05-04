@@ -20,7 +20,7 @@ namespace TMF.AzureAD.UWP.Services.Authentication
                 .Build();
         }
 
-        public async Task<AuthenticationData> Authenticate()
+        public async Task<AuthenticationData> AuthenticateAsync()
         {
             AuthenticationResult authResult = null;
             IEnumerable<IAccount> accounts = await _publicClientApp.GetAccountsAsync();
@@ -39,7 +39,7 @@ namespace TMF.AzureAD.UWP.Services.Authentication
             {
                 if (msalUiRequiredException.Message.Equals("No account or login hint was passed to the AcquireTokenSilent call."))
                 {
-                    authResult = await HandleFirstTimeAuthentication(accounts);
+                    authResult = await HandleFirstTimeAuthenticationAsync(accounts);
                     if (authResult != null)
                     {
                         return new AuthenticationData
@@ -75,7 +75,7 @@ namespace TMF.AzureAD.UWP.Services.Authentication
             }
         }
 
-        private async Task<AuthenticationResult> HandleFirstTimeAuthentication(IEnumerable<IAccount> accounts)
+        private async Task<AuthenticationResult> HandleFirstTimeAuthenticationAsync(IEnumerable<IAccount> accounts)
         {
             try
             {

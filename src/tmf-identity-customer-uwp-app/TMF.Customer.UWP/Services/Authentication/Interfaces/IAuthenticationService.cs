@@ -4,7 +4,7 @@ namespace TMF.Customer.UWP.Services.Authentication.Interfaces
 {
     public interface IAuthenticationService
     {
-        Task<AuthenticationData> Authenticate();
+        Task<AuthenticationData> AuthenticateAsync();
         Task SignOut();
     }
 }

@@ -35,7 +35,7 @@ namespace TMF.Customer.UWP
                 SignInButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 SignInProgressRing.IsActive = true;
 
-                _authenticationData = await _authenticationService.Authenticate();
+                _authenticationData = await _authenticationService.AuthenticateAsync();
 
                 SignInButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 SignInProgressRing.IsActive = false;
