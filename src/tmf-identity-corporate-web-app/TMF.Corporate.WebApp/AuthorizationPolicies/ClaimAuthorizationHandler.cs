@@ -21,7 +21,7 @@ namespace TMF.Corporate.WebApp.AuthorizationPolicies
                 {
                     if (roleClaim != null)
                     {
-                        if (roleClaim.Value.Equals(requirement.RoleName,
+                        if (roleClaim.Value.Equals(requirement.ClaimName,
                                                    StringComparison.InvariantCultureIgnoreCase))
                         {
                             context.Succeed(requirement);
