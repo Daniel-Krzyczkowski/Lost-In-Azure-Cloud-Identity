@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TMF.Corporate.WebApp.AuthorizationPolicies
 {
-    public class RoleMemberHandler : AuthorizationHandler<RoleMemberRequirement>
+    public class ClaimAuthorizationHandler : AuthorizationHandler<ClaimRequirement>
     {
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RoleMemberRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ClaimRequirement requirement)
         {
             var roleClaims = context
                                 .User

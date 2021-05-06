@@ -39,15 +39,15 @@ namespace TMF.Corporate.WebApp
             {
                 options.AddPolicy("Employee", configurePolicy =>
                 {
-                    configurePolicy.AddRequirements(new RoleMemberRequirement("Document.Read"));
+                    configurePolicy.AddRequirements(new ClaimRequirement("Document.Read"));
                 });
 
                 options.AddPolicy("Director", configurePolicy =>
                 {
-                    configurePolicy.AddRequirements(new RoleMemberRequirement("Document.Edit"));
+                    configurePolicy.AddRequirements(new ClaimRequirement("Document.Edit"));
                 });
             });
-            services.AddSingleton<IAuthorizationHandler, RoleMemberHandler>();
+            services.AddSingleton<IAuthorizationHandler, ClaimAuthorizationHandler>();
 
 
             services.AddHttpClient<IApiService, ApiService>(configureClient =>

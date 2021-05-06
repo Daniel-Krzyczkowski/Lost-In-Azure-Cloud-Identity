@@ -2,11 +2,11 @@
 
 namespace TMF.Corporate.WebApp.AuthorizationPolicies
 {
-    public class RoleMemberRequirement : IAuthorizationRequirement
+    public class ClaimRequirement : IAuthorizationRequirement
     {
         public string RoleName { get; set; }
 
-        public RoleMemberRequirement(string roleName)
+        public ClaimRequirement(string roleName)
         {
             RoleName = roleName;
         }
