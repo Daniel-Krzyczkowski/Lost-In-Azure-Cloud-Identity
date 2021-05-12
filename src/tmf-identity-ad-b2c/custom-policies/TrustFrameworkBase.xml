@@ -387,7 +387,7 @@
     <ContentDefinitions>
       <!-- This content definition is to render an error page that displays unhandled errors. -->
       <ContentDefinition Id="api.error">
-        <LoadUri>##StorageAccountPath##/template/exception.cshtml</LoadUri>
+        <LoadUri>##StorageAccountPath##/template/exception.html</LoadUri>
         <RecoveryUri>##StorageAccountPath##/template/exception.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:globalexception:1.1.0</DataUri>
         <Metadata>
@@ -395,7 +395,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.idpselections">
-        <LoadUri>##StorageAccountPath##/template/idpSelector.cshtml</LoadUri>
+        <LoadUri>##StorageAccountPath##/template/idpSelector.html</LoadUri>
         <RecoveryUri>##StorageAccountPath##/template/exception.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:idpselection:1.0.0</DataUri>
         <Metadata>
@@ -404,7 +404,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.idpselections.signup">
-        <LoadUri>##StorageAccountPath##/template/idpSelector.cshtml</LoadUri>
+        <LoadUri>##StorageAccountPath##/template/idpSelector.html</LoadUri>
         <RecoveryUri>##StorageAccountPath##/template/exception.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:idpselection:1.0.0</DataUri>
         <Metadata>
@@ -413,7 +413,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.signuporsignin">
-        <LoadUri>##StorageAccountPath##/template/unified.cshtml</LoadUri>
+        <LoadUri>##StorageAccountPath##/template/unified.html</LoadUri>
         <RecoveryUri>##StorageAccountPath##/template/exception.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:unifiedssp:1.0.0</DataUri>
         <Metadata>
@@ -421,7 +421,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.selfasserted">
-        <LoadUri>##StorageAccountPath##/template/selfAsserted.cshtml</LoadUri>
+        <LoadUri>##StorageAccountPath##/template/selfAsserted.html</LoadUri>
         <RecoveryUri>##StorageAccountPath##/template/exception.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
         <Metadata>
@@ -429,7 +429,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.selfasserted.profileupdate">
-        <LoadUri>##StorageAccountPath##/template/selfAsserted.cshtml</LoadUri>
+        <LoadUri>##StorageAccountPath##/template/selfAsserted.html</LoadUri>
         <RecoveryUri>##StorageAccountPath##/template/exception.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
         <Metadata>
@@ -437,7 +437,7 @@
         </Metadata>
       </ContentDefinition>
       <ContentDefinition Id="api.localaccountsignup">
-        <LoadUri>##StorageAccountPath##/template/selfAsserted.cshtml</LoadUri>
+        <LoadUri>##StorageAccountPath##/template/selfAsserted.html</LoadUri>
         <RecoveryUri>##StorageAccountPath##/template/exception.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.2</DataUri>
         <Metadata>
@@ -449,7 +449,7 @@
     </LocalizedResourcesReferences>
       </ContentDefinition>
       <ContentDefinition Id="api.localaccountpasswordreset">
-        <LoadUri>##StorageAccountPath##/template/selfAsserted.cshtml</LoadUri>
+        <LoadUri>##StorageAccountPath##/template/selfAsserted.html</LoadUri>
         <RecoveryUri>##StorageAccountPath##/template/exception.html</RecoveryUri>
         <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.2</DataUri>
         <Metadata>
