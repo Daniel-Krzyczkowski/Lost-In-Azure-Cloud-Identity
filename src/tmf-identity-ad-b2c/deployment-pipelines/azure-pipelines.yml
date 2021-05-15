@@ -19,6 +19,7 @@ stages:
         azureSubscription: $(azureResourceManagerConnectionName)
         storageAccountName: $(storageAccountName)
         storageAccountContainerName: $(storageAccountContainerName)
+        brandingFilesDirectory: 'src/branding/idp-pages'
         customPoliciesDirectory: 'src/custom-policies'
         clientId: $(ad-b2c-devops-automation-app-id)
         clientSecret: $(ad-b2c-devops-automation-app-secret)
