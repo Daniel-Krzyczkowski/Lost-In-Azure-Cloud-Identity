@@ -7,7 +7,8 @@ jobs:
   variables:
     scriptsDownloadDirectory: '$(System.DefaultWorkingDirectory)/custom-scripts'
     policyScriptPath: '$(scriptsDownloadDirectory)/custom-policies-deployment-script.ps1'
-    injectionScriptPath: '$(scriptsDownloadDirectory)/parameters-injection-script.ps1'
+    customPolicyParameterInjectScriptPath: '$(scriptsDownloadDirectory)/custom-policies-token-transformation-script.ps1'
+    brandingAssetsParameterInjectScriptPath: '$(scriptsDownloadDirectory)/branding-assets-token-transformation-script.ps1'
   strategy:
     runOnce:
       deploy:
@@ -16,16 +17,6 @@ jobs:
             clean: true 
             fetchDepth: 5
             lfs: true
-            
-          - task: AzureFileCopy@3
-            displayName: Copy branding files to Azure Blob Storage
-            inputs:
-              azureSubscription: ${{parameters.azureSubscription}}
-              SourcePath: '${{parameters.brandingFilesDirectory}}'
-              Destination: 'AzureBlob'
-              storage: '${{parameters.storageAccountName}}'
-              ContainerName: '${{parameters.storageAccountContainerName}}'
-
           - task: UniversalPackages@0
             displayName: Getting custom scripts from feed
             inputs:
@@ -34,12 +25,25 @@ jobs:
               feedsToUse: 'internal'
               vstsFeed: ${{parameters.vstsFeed}}
               vstsFeedPackage: ${{parameters.vstsFeedPackage}}
-              vstsPackageVersion: ${{parameters.vstsFeedPackageVersion}}        
+              vstsPackageVersion: ${{parameters.vstsFeedPackageVersion}}  
+          - task: PowerShell@2
+            displayName: Replace parameter placeholders for branding assets
+            inputs:
+              filePath: '$(brandingAssetsParameterInjectScriptPath)'
+              arguments: '-DirectoryPath ${{parameters.brandingFilesDirectory}}'          
+          - task: AzureFileCopy@3
+            displayName: Copy branding files to Azure Blob Storage
+            inputs:
+              azureSubscription: ${{parameters.azureSubscription}}
+              SourcePath: '${{parameters.brandingFilesDirectory}}'
+              Destination: 'AzureBlob'
+              storage: '${{parameters.storageAccountName}}'
+              ContainerName: '${{parameters.storageAccountContainerName}}'      
           - ${{ each policy in parameters.policies }}:
             - task: PowerShell@2
               displayName: Transform Tokens in ${{policy.path}}
               inputs:
-                filePath: '$(injectionScriptPath)'
+                filePath: '$(customPolicyParameterInjectScriptPath)'
                 arguments: '-PolicyId "${{policy.name}}" -File "${{policy.path}}" -DirectoryRoot "$(System.DefaultWorkingDirectory)" -TenantId "${{parameters.tenantId}}" -BasePolicy "${{policy.basePolicy}}"' 
           - ${{ each policy in parameters.policies }}:
             - task: PowerShell@2
