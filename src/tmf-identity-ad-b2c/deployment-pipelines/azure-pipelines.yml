@@ -9,6 +9,7 @@ stages:
   variables:  
   - group: 'tmf-identity-ad-b2c-release-scripts-vg'
   - group: 'tmf-identity-ad-b2c-custom-policies-release-vg'
+  - group: 'tmf-identity-ad-b2c-branding-release-vg'
   jobs:
     - template: azure-pipelines-deployment-template.yml
       parameters:
