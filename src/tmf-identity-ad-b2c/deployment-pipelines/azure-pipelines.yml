@@ -26,7 +26,14 @@ stages:
         tenantId: $(ad-b2c-devops-automation-app-tenant-id)
         sendgrid-email-template-id: $(sendgrid-email-template-id)
         sendgrid-from-email: $(sendgrid-from-email)
-        policies: 
+        policies:
+        - TrustFrameworkBase:
+          name: 'B2C_1A_TrustFrameworkBase'
+          path: 'src/custom-policies/TrustFrameworkBase.xml' 
+        - TrustFrameworkExtensions:
+          basePolicy: 'B2C_1A_TrustFrameworkBase'
+          name: 'B2C_1A_TrustFrameworkExtensions'
+          path: 'src/custom-policies/TrustFrameworkExtensions.xml' 
         - SigninSignIn:
           basePolicy: 'B2C_1A_TrustFrameworkExtensions'
           name: 'B2C_1A_SigninSignUp'
